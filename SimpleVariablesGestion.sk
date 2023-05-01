@@ -1,162 +1,165 @@
 options:
 	PLAYER_MESSAGE-NOT-PERM: "&cYou do not have access to this command."
+	NOT-USE-CONSOLE: "&cThis command is for in-game only."
 
 	HELP_MESSAGE-M1: ""
 	HELP_MESSAGE-M2: "&b&lSimpleVariablesGestion &8»»» &fCommands Systems"
 	HELP_MESSAGE-M3: ""
-	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7] [value] &8» &7Create a simple variable."
+	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7/&cPlayer&7] &7[&cvalue&7] &8» &7Create a simple variable."
 	HELP_MESSAGE-M5: "&f/svg &ddelete &7[&cname of variable&7] &8» &7Delete a simple variable."
 	HELP_MESSAGE-M6: "&f/svg &dinfo &7[&cname of variable&7] &8» &7Get Info of simple variable."
 	HELP_MESSAGE-M7: "&f/svg &dlist &8» &7Get list of all simples variables."
 
-	CREATE-VARIABLES_MESSAGE-STRING: "&cYou must put a string to be able to create the variables."
-	CREATE-VARIABLES_MESSAGE-BOOLEAN: "&cYou must put a boolean to be able to create the variables."
-	CREATE-VARIABLES_MESSAGE-NUMBER: "&cYou must put a number to be able to create the variables."
-	CREATE-VARIABLES_MESSAGE-INTEGER: "&cYou must put a integer to be able to create the variables."
-	CREATE-VARIABLES_MESSAGE-ALREADY-CREATED: "&cYou have already created a variable with the name you indicated."
-	CREATE-VARIABLES_MESSAGE-CREATED: "&6You have created the variables &d%arg 2%&6."
+	CREATE-VARIABLES_MESSAGE-STRING: "&cYou must put a string to be able to create the simple variable."
+	CREATE-VARIABLES_MESSAGE-BOOLEAN: "&cYou must put a boolean to be able to create the simple variable."
+	CREATE-VARIABLES_MESSAGE-NUMBER: "&cYou must put a number to be able to create the simple variable."
+	CREATE-VARIABLES_MESSAGE-INTEGER: "&cYou must put a integer to be able to create the simple variable."
+	CREATE-VARIABLES_MESSAGE-PLAYER: "&cYou must put a player to be able to create the simple variable."
+	CREATE-VARIABLES_MESSAGE-ALREADY-CREATED: "&cYou have already created a simple variable with the name you indicated."
+	CREATE-VARIABLES_MESSAGE-CREATED: "&6You have created the simple variable &d%arg 2%&6."
 
-	DELETE-VARIABLES_MESSAGE-NOT-CREATED: "&cThe variable you specified does not exist."
-	DELETE-VARIABLES_MESSAGE-CREATED: "&6You have deleted the variables &d%arg 2%&6."
+	DELETE-VARIABLES_MESSAGE-NOT-CREATED: "&cThe simple variable you specified does not exist."
+	DELETE-VARIABLES_MESSAGE-CREATED: "&6You have deleted the simple variable &d%arg 2%&6."
 
 	INFO_MESSAGE-M1: ""
 	INFO_MESSAGE-M2: "&b&lSimpleVariablesGestion &8»»» &fInformation"
 	INFO_MESSAGE-M3: ""
-	INFO_MESSAGE-M4: "&7Name of variable: &c%{simpleVariablesGestion::variables-name::%arg 2%}%"
-	INFO_MESSAGE-M5: "&7Option of variable: &c%{simpleVariablesGestion::variables-option::%arg 2%}%"
-	INFO_MESSAGE-M6: "&7Value of variables: &c%{simpleVariablesGestion::variables-value::%arg 2%}%"
+	INFO_MESSAGE-M4: "&7Name of simple variable: &c%{simpleVariablesGestion::variables-name::%arg 2%}%"
+	INFO_MESSAGE-M5: "&7Option of simple variable: &c%{simpleVariablesGestion::variables-option::%arg 2%}%"
+	INFO_MESSAGE-M6: "&7Value of simple variables: &c%{simpleVariablesGestion::variables-value::%arg 2%}%"
 
 	INFO-VARIABLES_MESSAGE-NOT-CREATED: "&cThe variable you specified does not exist."
+	INFO-VARIABLES_MESSAGE-NAME: "&cYou must specify the name of a simple variable."
 
-	LIST-VARIABLES_MESSAGE-NOT-VARIABLES: "&cThere are no variables available at the moment."
-	LIST-VARIABLES_MESSAGE: "&6List of all variables: &c%{simpleVariablesGestion::variables-name::*}%"
+	LIST-VARIABLES_MESSAGE-NOT-VARIABLES: "&cThere are no simples variables available at the moment."
+	LIST-VARIABLES_MESSAGE: "&6List of all simples variables: &c%{simpleVariablesGestion::variables-name::*}%"
 
 command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 	aliases: /svg
 	trigger:
-		arg 1 != "create" or "delete" or "info" or "list":
-			sender = player:
+		sender = player:
+			arg 1 != "create" or "delete" or "info" or "list":
 				player has permission "simplevariablesgestion.commands"	or "simplevariablesgestion.*":
-					wait a tick
+					send {@HELP_MESSAGE-M1} to player
+					send {@HELP_MESSAGE-M2} to player
+					send {@HELP_MESSAGE-M3} to player
+					send {@HELP_MESSAGE-M4} to player
+					send {@HELP_MESSAGE-M5} to player
+					send {@HELP_MESSAGE-M6} to player
+					send {@HELP_MESSAGE-M7} to player
 				else:
-					send {@PLAYER_MESSAGE-NOT-PERM} to sender
-					stop
-			send {@HELP_MESSAGE-M1} to sender
-			send {@HELP_MESSAGE-M2} to sender
-			send {@HELP_MESSAGE-M3} to sender
-			send {@HELP_MESSAGE-M4} to sender
-			send {@HELP_MESSAGE-M5} to sender
-			send {@HELP_MESSAGE-M6} to sender
-			send {@HELP_MESSAGE-M7} to sender
-		arg 1 = "create":
-			sender = player:
-				player has permission "simplevariablesgestion.command.create" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					wait a tick
-				else:
-					send {@PLAYER_MESSAGE-NOT-PERM} to sender
-					stop
-			arg 2 isn't set:
-				send {@HELP_MESSAGE-M1} to sender
-				send {@HELP_MESSAGE-M2} to sender
-				send {@HELP_MESSAGE-M3} to sender
-				send {@HELP_MESSAGE-M4} to sender
-				send {@HELP_MESSAGE-M5} to sender
-				send {@HELP_MESSAGE-M6} to sender
-				send {@HELP_MESSAGE-M7} to sender
-			else:
-				arg 3 != "string" or "boolean" or "number" or "integer":
-					send {@HELP_MESSAGE-M1} to sender
-					send {@HELP_MESSAGE-M2} to sender
-					send {@HELP_MESSAGE-M3} to sender
-					send {@HELP_MESSAGE-M4} to sender
-					send {@HELP_MESSAGE-M5} to sender
-					send {@HELP_MESSAGE-M6} to sender
-					send {@HELP_MESSAGE-M7} to sender
-				arg 3 = "string":
-					arg 4 isn't text:
-						send {@CREATE-VARIABLES_MESSAGE-STRING} to player
-					else:
-						{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
-							set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
-							set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
-							set {simpleVariablesGestion::variables-option::%arg 2%} to "String"
-							send {@CREATE-VARIABLES_MESSAGE-CREATED} to sender
+					send {@PLAYER_MESSAGE-NOT-PERM} to player
+			arg 1 = "create":
+				sender = player:
+					player has permission "simplevariablesgestion.command.create" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+						arg 2 isn't set:
+							send {@HELP_MESSAGE-M1} to player
+							send {@HELP_MESSAGE-M2} to player
+							send {@HELP_MESSAGE-M3} to player
+							send {@HELP_MESSAGE-M4} to player
+							send {@HELP_MESSAGE-M5} to player
+							send {@HELP_MESSAGE-M6} to player
+							send {@HELP_MESSAGE-M7} to player
 						else:
-							send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to sender
-				arg 3 = "boolean":
-					arg 4 parsed as boolean isn't boolean:
-						send {@CREATE-VARIABLES_MESSAGE-BOOLEAN} to player
+							arg 3 != "string" or "boolean" or "number" or "integer" or "player":
+								send {@HELP_MESSAGE-M1} to player
+								send {@HELP_MESSAGE-M2} to player
+								send {@HELP_MESSAGE-M3} to player
+								send {@HELP_MESSAGE-M4} to player
+								send {@HELP_MESSAGE-M5} to player
+								send {@HELP_MESSAGE-M6} to player
+								send {@HELP_MESSAGE-M7} to player
+							arg 3 = "string":
+								arg 4 isn't text:
+									send {@CREATE-VARIABLES_MESSAGE-STRING} to player
+								else:
+									{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+										set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
+										set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
+										set {simpleVariablesGestion::variables-option::%arg 2%} to "String"
+										send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
+									else:
+										send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
+							arg 3 = "boolean":
+								arg 4 parsed as boolean isn't boolean:
+									send {@CREATE-VARIABLES_MESSAGE-BOOLEAN} to player
+								else:
+									{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+										set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
+										set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
+										set {simpleVariablesGestion::variables-option::%arg 2%} to "Boolean"
+										send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
+									else:
+										send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
+							arg 3 = "number":
+								arg 4 parsed as number isn't number:
+									send {@CREATE-VARIABLES_MESSAGE-NUMBER} to player
+								else:
+									{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+										set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
+										set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
+										set {simpleVariablesGestion::variables-option::%arg 2%} to "Number"
+										send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
+									else:
+										send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
+							arg 3 = "integer":
+								arg 4 parsed as integer isn't integer:
+									send {@CREATE-VARIABLES_MESSAGE-INTEGER} to player
+								else:
+									{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+										set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
+										set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
+										set {simpleVariablesGestion::variables-option::%arg 2%} to "Integer"
+										send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
+									else:
+										send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
+							arg 3 = "player":
+								arg 4 parsed as player isn't player:
+									send {@CREATE-VARIABLES_MESSAGE-PLAYER} to player
+								else:
+									{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+										set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as player
+										set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
+										set {simpleVariablesGestion::variables-option::%arg 2%} to "Player"
+										send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
+									else:
+										send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
 					else:
-						{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
-							set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
-							set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
-							set {simpleVariablesGestion::variables-option::%arg 2%} to "Boolean"
-							send {@CREATE-VARIABLES_MESSAGE-CREATED} to sender
-						else:
-							send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to sender
-				arg 3 = "number":
-					arg 4 parsed as number isn't number:
-						send {@CREATE-VARIABLES_MESSAGE-NUMBER} to player
-					else:
-						{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
-							set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
-							set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
-							set {simpleVariablesGestion::variables-option::%arg 2%} to "Number"
-							send {@CREATE-VARIABLES_MESSAGE-CREATED} to sender
-						else:
-							send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to sender
-				arg 3 = "integer":
-					arg 4 parsed as integer isn't integer:
-						send {@CREATE-VARIABLES_MESSAGE-INTEGER} to player
-					else:
-						{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
-							set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
-							set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
-							set {simpleVariablesGestion::variables-option::%arg 2%} to "Integer"
-							send {@CREATE-VARIABLES_MESSAGE-CREATED} to sender
-						else:
-							send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to sender
-		arg 1 = "delete":
-			sender = player:
+						send {@PLAYER_MESSAGE-NOT-PERM} to player
+			arg 1 = "delete":
 				player has permission "simplevariablesgestion.command.delete" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					wait a tick
+					{simpleVariablesGestion::variables-value::%arg 2%} is set:
+						delete {simpleVariablesGestion::variables-value::%arg 2%}
+						delete {simpleVariablesGestion::variables-name::%arg 2%}
+						delete {simpleVariablesGestion::variables-option::%arg 2%}
+						send {@DELETE-VARIABLES_MESSAGE-CREATED} to player
+					else:
+						send {@DELETE-VARIABLES_MESSAGE-NOT-CREATED} to player
 				else:
-					send {@PLAYER_MESSAGE-NOT-PERM} to sender
-					stop
-				{simpleVariablesGestion::variables-value::%arg 2%} is set:
-					delete {simpleVariablesGestion::variables-value::%arg 2%}
-					delete {simpleVariablesGestion::variables-name::%arg 2%}
-					delete {simpleVariablesGestion::variables-option::%arg 2%}
-					send {@DELETE-VARIABLES_MESSAGE-CREATED} to sender
-				else:
-					send {@DELETE-VARIABLES_MESSAGE-NOT-CREATED} to sender
-		arg 1 = "info":
-			sender = player:
+					send {@PLAYER_MESSAGE-NOT-PERM} to player
+			arg 1 = "info":
 				player has permission "simplevariablesgestion.command.info" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					wait a tick
+					arg 2 isn't set:
+						send {@INFO-VARIABLES_MESSAGE-NAME} to player
+					else:
+						{simpleVariablesGestion::variables-value::%arg 2%} is set:
+							send {@INFO_MESSAGE-M1} to player
+							send {@INFO_MESSAGE-M2} to player
+							send {@INFO_MESSAGE-M3} to player
+							send {@INFO_MESSAGE-M4} to player
+							send {@INFO_MESSAGE-M5} to player
+							send {@INFO_MESSAGE-M6} to player
+						else:
+							send {@INFO-VARIABLES_MESSAGE-NOT-CREATED} to player
 				else:
-					send {@PLAYER_MESSAGE-NOT-PERM} to sender
-					stop
-			arg 2 isn't set:
-				send "name of variables" to player
-			else:
-				{simpleVariablesGestion::variables-value::%arg 2%} is set:
-					send {@INFO_MESSAGE-M1} to sender
-					send {@INFO_MESSAGE-M2} to sender
-					send {@INFO_MESSAGE-M3} to sender
-					send {@INFO_MESSAGE-M4} to sender
-					send {@INFO_MESSAGE-M5} to sender
-					send {@INFO_MESSAGE-M6} to sender
-				else:
-					send {@INFO-VARIABLES_MESSAGE-NOT-CREATED} to sender		
-		arg 1 = "list":
-			sender = player:
+					send {@PLAYER_MESSAGE-NOT-PERM} to player		
+			arg 1 = "list":
 				player has permission "simplevariablesgestion.command.list" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					wait a tick
+					{simpleVariablesGestion::variables-value::*} isn't set:
+						send {@LIST-VARIABLES_MESSAGE-NOT-VARIABLES} to player
+					else:
+						send {@LIST-VARIABLES_MESSAGE} to player
 				else:
-					send {@PLAYER_MESSAGE-NOT-PERM} to sender
-					stop
-			{simpleVariablesGestion::variables-value::*} isn't set:
-				send {@LIST-VARIABLES_MESSAGE-NOT-VARIABLES} to sender
-			else:
-				send {@LIST-VARIABLES_MESSAGE} to sender
+					send {@PLAYER_MESSAGE-NOT-PERM} to player
+		sender = console:
+			send {@NOT-USE-CONSOLE} to console
