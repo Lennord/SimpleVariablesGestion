@@ -4,7 +4,7 @@ options:
 	HELP_MESSAGE-M1: ""
 	HELP_MESSAGE-M2: "&b&lSimpleVariablesGestion &8»»» &fCommands Systems"
 	HELP_MESSAGE-M3: ""
-	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7] &8» &7Create a simple variable."
+	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7] [value] &8» &7Create a simple variable."
 	HELP_MESSAGE-M5: "&f/svg &ddelete &7[&cname of variable&7] &8» &7Delete a simple variable."
 	HELP_MESSAGE-M6: "&f/svg &dinfo &7[&cname of variable&7] &8» &7Get Info of simple variable."
 	HELP_MESSAGE-M7: "&f/svg &dlist &8» &7Get list of all simples variables."
