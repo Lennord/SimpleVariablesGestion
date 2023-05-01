@@ -4,13 +4,15 @@
 
 This script, allows you to manage simple variables, you can create, delete a simple variable and even see the information of a simple variable and see the list of simple variables.
 
-📑 Requirements
+📑- Requirements
 
 You just need the "Skript" plugin, 2.6.3 is recommended to use this skript, there is no addon needed for now.
 
-✨ Features
+Skript (Github Releases): https://github.com/SkriptLang/Skript/releases
 
-Creating a simple variable with the following options: 
+✨- Features
+
+Creating a simple variable with the following options:
   1. String
   2. Boolean
   3. Number
