@@ -10,12 +10,13 @@ You just need the "Skript" plugin, 2.6.3 is recommended to use this skript, ther
 
 ✨ Features
 
-Creating a simple variable with the following options: String / Boolean / Number / Integer
-
+Creating a simple variable with the following options: 
+  1. String
+  2. Boolean
+  3. Number
+  4. Integer
 Deleteing a simple variable.
-
 Get info of a simple variable.
-
 Get list of all simples variables.
 
 You can also in this script, configure the messages.
