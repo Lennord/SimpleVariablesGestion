@@ -16,8 +16,6 @@ Creating a simple variable with the following options:
   3. Number
   4. Integer
 
-Deleteing a simple variable.
-Get info of a simple variable.
-Get list of all simples variables.
+Deleteing a simple variable, get info of a simple variable and get list of all simples variables.
 
 You can also in this script, configure the messages.
