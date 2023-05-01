@@ -5,7 +5,7 @@ options:
 	HELP_MESSAGE-M1: ""
 	HELP_MESSAGE-M2: "&b&lSimpleVariablesGestion &8»»» &fCommands Systems"
 	HELP_MESSAGE-M3: ""
-	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7/&cPlayer&7] &7[&cvalue&7] &8» &7Create a simple variable."
+	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7/&cPlayer&7/&cDate&7] &7[&cvalue&7] &8» &7Create a simple variable."
 	HELP_MESSAGE-M5: "&f/svg &ddelete &7[&cname of variable&7] &8» &7Delete a simple variable."
 	HELP_MESSAGE-M6: "&f/svg &dinfo &7[&cname of variable&7] &8» &7Get Info of simple variable."
 	HELP_MESSAGE-M7: "&f/svg &dlist &8» &7Get list of all simples variables."
@@ -61,7 +61,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 							send {@HELP_MESSAGE-M6} to player
 							send {@HELP_MESSAGE-M7} to player
 						else:
-							arg 3 != "string" or "boolean" or "number" or "integer" or "player":
+							arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date":
 								send {@HELP_MESSAGE-M1} to player
 								send {@HELP_MESSAGE-M2} to player
 								send {@HELP_MESSAGE-M3} to player
@@ -124,6 +124,14 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 										send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 									else:
 										send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
+							arg 3 = "date":
+								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+									set {simpleVariablesGestion::variables-value::%arg 2%} to now
+									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
+									set {simpleVariablesGestion::variables-option::%arg 2%} to "Date"
+									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
+								else:
+									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
 					else:
 						send {@PLAYER_MESSAGE-NOT-PERM} to player
 			arg 1 = "delete":
