@@ -6,7 +6,7 @@ This script, allows you to manage simple variables, you can create, delete a sim
 
 📑- Requirements
 
-You just need the "Skript" plugin, 2.6.3 is recommended to use this skript, there is no addon needed for now.
+You just need the "Skript" plugin, 2.6.4 is recommended to use this skript, there is no addon needed for now.
 
 Skript (Github Releases): https://github.com/SkriptLang/Skript/releases
 
