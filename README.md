@@ -8,4 +8,6 @@ You just need the "Skript" plugin, 2.6.4 is recommended to use this skript, ther
 
 Skript (Github Releases): https://github.com/SkriptLang/Skript/releases
 
+Spigot: https://www.spigotmc.org/resources/simplevariablesgestion.109587/
+
 Wiki: https://github.com/Lennord/SimpleVariablesGestion/wiki
