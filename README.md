@@ -4,10 +4,10 @@
 
 This script, allows you to manage simple variables, you can create, delete a simple variable and even see the information of a simple variable and see the list of simple variables.
 
-You just need the "Skript" plugin, 2.6.4 is recommended to use this skript, there is no addon needed for now.
+You just need the "Skript" plugin, 2.6.4 is recommended to use this script, there is no addon needed for now.
 
 Skript (Github Releases): https://github.com/SkriptLang/Skript/releases
 
 Spigot: https://www.spigotmc.org/resources/simplevariablesgestion.109587/
 
-Wiki: https://github.com/Lennord/SimpleVariablesGestion/wiki
+Wiki: https://github.com/Lennord/SimpleVariablesGestion/wiki/Wiki-Official
