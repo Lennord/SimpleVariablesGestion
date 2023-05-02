@@ -103,11 +103,11 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
 						arg 3 = "integer":
-							arg 4 parsed as integer isn't integer:
+							arg 4 parsed as integer isn't set:
 								send {@CREATE-VARIABLES_MESSAGE-INTEGER} to player
 							else:
 								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
-									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
+									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as integer
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "INTEGER"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
