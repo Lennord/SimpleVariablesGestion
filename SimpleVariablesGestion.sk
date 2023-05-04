@@ -9,6 +9,7 @@ options:
 	HELP_MESSAGE-M5: "&f/svg &ddelete &7[&cname of variable&7] &8» &7Delete a simple variable."
 	HELP_MESSAGE-M6: "&f/svg &dinfo &7[&cname of variable&7] &8» &7Get info of simple variable."
 	HELP_MESSAGE-M7: "&f/svg &dlist &8» &7Get list of all simples variables."
+	HELP_MESSAGE-M8: "&f/svg &dhelp &8» &7Get list of all commands."
 
 	CREATE-VARIABLES_MESSAGE-STRING: "&cYou must put a string to be able to create the simple variable."
 	CREATE-VARIABLES_MESSAGE-BOOLEAN: "&cYou must put a boolean to be able to create the simple variable."
@@ -43,7 +44,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 	aliases: /svg
 	trigger:
 		sender = player:
-			arg 1 != "create" or "delete" or "info" or "list":
+			arg 1 != "create" or "delete" or "info" or "list" or "help":
 				player has permission "simplevariablesgestion.commands"	or "simplevariablesgestion.*":
 					send {@HELP_MESSAGE-M1} to player
 					send {@HELP_MESSAGE-M2} to player
@@ -52,6 +53,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 					send {@HELP_MESSAGE-M5} to player
 					send {@HELP_MESSAGE-M6} to player
 					send {@HELP_MESSAGE-M7} to player
+					send {@HELP_MESSAGE-M8} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
 			arg 1 = "create":
@@ -64,6 +66,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 						send {@HELP_MESSAGE-M5} to player
 						send {@HELP_MESSAGE-M6} to player
 						send {@HELP_MESSAGE-M7} to player
+						send {@HELP_MESSAGE-M8} to player
 					else:
 						arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date" or "timespan" or "worldplayer" or "toolplayer" or "world" or "tool" or "entity" or "item":
 							send {@HELP_MESSAGE-M1} to player
@@ -73,6 +76,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 							send {@HELP_MESSAGE-M5} to player
 							send {@HELP_MESSAGE-M6} to player
 							send {@HELP_MESSAGE-M7} to player
+							send {@HELP_MESSAGE-M8} to player
 						arg 3 = "string":
 							arg 4 isn't text:
 								send {@CREATE-VARIABLES_MESSAGE-STRING} to player
@@ -242,6 +246,18 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 						send {@LIST-VARIABLES_MESSAGE-NOT-VARIABLES} to player
 					else:
 						send {@LIST-VARIABLES_MESSAGE} to player
+				else:
+					send {@PLAYER_MESSAGE-NOT-PERM} to player
+			arg 1 = "help":
+				player has permission "simplevariablesgestion.command.help" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+					send {@HELP_MESSAGE-M1} to player
+					send {@HELP_MESSAGE-M2} to player
+					send {@HELP_MESSAGE-M3} to player
+					send {@HELP_MESSAGE-M4} to player
+					send {@HELP_MESSAGE-M5} to player
+					send {@HELP_MESSAGE-M6} to player
+					send {@HELP_MESSAGE-M7} to player
+					send {@HELP_MESSAGE-M8} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
 		sender = console:
