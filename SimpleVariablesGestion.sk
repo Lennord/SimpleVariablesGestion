@@ -424,6 +424,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 					send {@HELP_MESSAGE-M6} to player
 					send {@HELP_MESSAGE-M7} to player
 					send {@HELP_MESSAGE-M8} to player
+					send {@HELP_MESSAGE-M9} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
 		sender = console:
