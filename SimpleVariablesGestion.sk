@@ -48,9 +48,9 @@ options:
 command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 	aliases: /svg
 	trigger:
-		sender = player:
-			arg 1 != "create" or "delete" or "modify" or "info" or "list" or "help":
-				player has permission "simplevariablesgestion.commands"	or "simplevariablesgestion.*":
+		if sender = player:
+			if arg 1 != "create" or "delete" or "modify" or "info" or "list" or "help":
+				if player has permission "simplevariablesgestion.commands"	or "simplevariablesgestion.*":
 					send {@HELP_MESSAGE-M1} to player
 					send {@HELP_MESSAGE-M2} to player
 					send {@HELP_MESSAGE-M3} to player
@@ -62,9 +62,9 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 					send {@HELP_MESSAGE-M9} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
-			arg 1 = "create":
-				player has permission "simplevariablesgestion.command.create" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					arg 2 isn't set:
+			else if arg 1 = "create":
+				if player has permission "simplevariablesgestion.command.create" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+					if arg 2 isn't set:
 						send {@HELP_MESSAGE-M1} to player
 						send {@HELP_MESSAGE-M2} to player
 						send {@HELP_MESSAGE-M3} to player
@@ -75,7 +75,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 						send {@HELP_MESSAGE-M8} to player
 						send {@HELP_MESSAGE-M9} to player
 					else:
-						arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date" or "timespan" or "worldplayer" or "toolplayer" or "world" or "tool" or "entity" or "item" or "location" or "locationplayer":
+						if arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date" or "timespan" or "worldplayer" or "toolplayer" or "world" or "tool" or "entity" or "item" or "location" or "locationplayer":
 							send {@HELP_MESSAGE-M1} to player
 							send {@HELP_MESSAGE-M2} to player
 							send {@HELP_MESSAGE-M3} to player
@@ -85,153 +85,153 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 							send {@HELP_MESSAGE-M7} to player
 							send {@HELP_MESSAGE-M8} to player
 							send {@HELP_MESSAGE-M9} to player
-						arg 3 = "string":
-							arg 4 isn't text:
+						else if arg 3 = "string":
+							if arg 4 isn't text:
 								send {@CREATE-VARIABLES_MESSAGE-STRING} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "STRING"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "boolean":
-							arg 4 parsed as boolean isn't boolean:
+						else if arg 3 = "boolean":
+							if arg 4 parsed as boolean isn't boolean:
 								send {@CREATE-VARIABLES_MESSAGE-BOOLEAN} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "BOOLEAN"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "number":
-							arg 4 parsed as number isn't number:
+						else if arg 3 = "number":
+							if arg 4 parsed as number isn't number:
 								send {@CREATE-VARIABLES_MESSAGE-NUMBER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "NUMBER"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "integer":
-							arg 4 parsed as integer isn't set:
+						else if arg 3 = "integer":
+							if arg 4 parsed as integer isn't set:
 								send {@CREATE-VARIABLES_MESSAGE-INTEGER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as integer
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "INTEGER"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "player":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "player":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-PLAYER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as player
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "PLAYER"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "date":
-							{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+						else if arg 3 = "date":
+							if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to now
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "DATE"
 								send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 							else:
 								send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "timespan":
-							arg 4 parsed as timespan isn't timespan:
+						else if arg 3 = "timespan":
+							if arg 4 parsed as timespan isn't timespan:
 								send {@CREATE-VARIABLES_MESSAGE-TIMESPAN} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as timespan
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "TIMESPAN"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "worldplayer":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "worldplayer":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-WORLD-PLAYER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to world of (arg 4 parsed as player)
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "WORLD-PLAYER"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "toolplayer":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "toolplayer":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-WORLD-TOOL} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to tool of (arg 4 parsed as player)
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "WORLD-TOOL"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "world":
-							{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+						else if arg 3 = "world":
+							if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to world of player
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "WORLD"
 								send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 							else:
 								send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "tool":
-							{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+						else if arg 3 = "tool":
+							if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to tool of player
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "TOOL"
 								send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 							else:
 								send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "entity":
-							arg 4 parsed as entity type isn't set:
+						else if arg 3 = "entity":
+							if arg 4 parsed as entity type isn't set:
 								send {@CREATE-VARIABLES_MESSAGE-ENTITY} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as entity type
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "ENTITY"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "item":
-							arg 4 parsed as item type isn't set:
+						else if arg 3 = "item":
+							if arg 4 parsed as item type isn't set:
 								send {@CREATE-VARIABLES_MESSAGE-ITEM} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as item type
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "ITEM"
 									send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 								else:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "location":
-							{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+						else if arg 3 = "location":
+							if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to location of player
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "LOCATION"
 								send {@CREATE-VARIABLES_MESSAGE-CREATED} to player
 							else:
 								send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
-						arg 3 = "locationplayer":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "locationplayer":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-WORLD-PLAYER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} isn't set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} isn't set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to location of (arg 4 parsed as player)
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "LOCATION-PLAYER"
@@ -240,9 +240,9 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 									send {@CREATE-VARIABLES_MESSAGE-ALREADY-CREATED} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
-			arg 1 = "modify":
-				player has permission "simplevariablesgestion.command.modify" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					arg 2 isn't set:
+			else if arg 1 = "modify":
+				if player has permission "simplevariablesgestion.command.modify" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+					if arg 2 isn't set:
 						send {@HELP_MESSAGE-M1} to player
 						send {@HELP_MESSAGE-M2} to player
 						send {@HELP_MESSAGE-M3} to player
@@ -253,7 +253,7 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 						send {@HELP_MESSAGE-M8} to player
 						send {@HELP_MESSAGE-M9} to player
 					else:
-						arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date" or "timespan" or "worldplayer" or "toolplayer" or "world" or "tool" or "entity" or "item" or "location" or "locationplayer":
+						if arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date" or "timespan" or "worldplayer" or "toolplayer" or "world" or "tool" or "entity" or "item" or "location" or "locationplayer":
 							send {@HELP_MESSAGE-M1} to player
 							send {@HELP_MESSAGE-M2} to player
 							send {@HELP_MESSAGE-M3} to player
@@ -263,153 +263,153 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 							send {@HELP_MESSAGE-M7} to player
 							send {@HELP_MESSAGE-M8} to player
 							send {@HELP_MESSAGE-M9} to player
-						arg 3 = "string":
-							arg 4 isn't text:
+						else if arg 3 = "string":
+							if arg 4 isn't text:
 								send {@CREATE-VARIABLES_MESSAGE-STRING} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "STRING"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "boolean":
-							arg 4 parsed as boolean isn't boolean:
+						else if arg 3 = "boolean":
+							if arg 4 parsed as boolean isn't boolean:
 								send {@CREATE-VARIABLES_MESSAGE-BOOLEAN} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "BOOLEAN"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "number":
-							arg 4 parsed as number isn't number:
+						else if arg 3 = "number":
+							if arg 4 parsed as number isn't number:
 								send {@CREATE-VARIABLES_MESSAGE-NUMBER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "NUMBER"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "integer":
-							arg 4 parsed as integer isn't set:
+						else if arg 3 = "integer":
+							if arg 4 parsed as integer isn't set:
 								send {@CREATE-VARIABLES_MESSAGE-INTEGER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as integer
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "INTEGER"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "player":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "player":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-PLAYER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as player
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "PLAYER"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "date":
-							{simpleVariablesGestion::variables-value::%arg 2%} is set:
+						else if arg 3 = "date":
+							if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to now
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "DATE"
 								send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 							else:
 								send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "timespan":
-							arg 4 parsed as timespan isn't timespan:
+						else if arg 3 = "timespan":
+							if arg 4 parsed as timespan isn't timespan:
 								send {@CREATE-VARIABLES_MESSAGE-TIMESPAN} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as timespan
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "TIMESPAN"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "worldplayer":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "worldplayer":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-WORLD-PLAYER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to world of (arg 4 parsed as player)
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "WORLD-PLAYER"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "toolplayer":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "toolplayer":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-WORLD-TOOL} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to tool of (arg 4 parsed as player)
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "WORLD-TOOL"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "world":
-							{simpleVariablesGestion::variables-value::%arg 2%} is set:
+						else if arg 3 = "world":
+							if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to world of player
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "WORLD"
 								send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 							else:
 								send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "tool":
-							{simpleVariablesGestion::variables-value::%arg 2%} is set:
+						else if arg 3 = "tool":
+							if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to tool of player
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "TOOL"
 								send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 							else:
 								send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "entity":
-							arg 4 parsed as entity type isn't set:
+						else if arg 3 = "entity":
+							if arg 4 parsed as entity type isn't set:
 								send {@CREATE-VARIABLES_MESSAGE-ENTITY} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as entity type
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "ENTITY"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "item":
-							arg 4 parsed as item type isn't set:
+						else if arg 3 = "item":
+							if arg 4 parsed as item type isn't set:
 								send {@CREATE-VARIABLES_MESSAGE-ITEM} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to arg 4 parsed as item type
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "ITEM"
 									send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 								else:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "location":
-							{simpleVariablesGestion::variables-value::%arg 2%} is set:
+						else if arg 3 = "location":
+							if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 								set {simpleVariablesGestion::variables-value::%arg 2%} to location of player
 								set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 								set {simpleVariablesGestion::variables-option::%arg 2%} to "LOCATION"
 								send {@MODIFY-VARIABLES_MESSAGE-MOFIDIED} to player
 							else:
 								send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
-						arg 3 = "locationplayer":
-							arg 4 parsed as player isn't player:
+						else if arg 3 = "locationplayer":
+							if arg 4 parsed as player isn't player:
 								send {@CREATE-VARIABLES_MESSAGE-LOCATION-PLAYER} to player
 							else:
-								{simpleVariablesGestion::variables-value::%arg 2%} is set:
+								if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 									set {simpleVariablesGestion::variables-value::%arg 2%} to location of (arg 4 parsed as player)
 									set {simpleVariablesGestion::variables-name::%arg 2%} to arg 2
 									set {simpleVariablesGestion::variables-option::%arg 2%} to "LOCATION-PLAYER"
@@ -418,9 +418,9 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 									send {@MODIFY-VARIABLES_MESSAGE-NOT-CREATED} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
-			arg 1 = "delete":
-				player has permission "simplevariablesgestion.command.delete" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					{simpleVariablesGestion::variables-value::%arg 2%} is set:
+			else if arg 1 = "delete":
+				if player has permission "simplevariablesgestion.command.delete" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+					if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 						delete {simpleVariablesGestion::variables-value::%arg 2%}
 						delete {simpleVariablesGestion::variables-name::%arg 2%}
 						delete {simpleVariablesGestion::variables-option::%arg 2%}
@@ -429,12 +429,12 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 						send {@DELETE-VARIABLES_MESSAGE-NOT-CREATED} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
-			arg 1 = "info":
-				player has permission "simplevariablesgestion.command.info" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					arg 2 isn't set:
+			else if arg 1 = "info":
+				if player has permission "simplevariablesgestion.command.info" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+					if arg 2 isn't set:
 						send {@INFO-VARIABLES_MESSAGE-NAME} to player
 					else:
-						{simpleVariablesGestion::variables-value::%arg 2%} is set:
+						if {simpleVariablesGestion::variables-value::%arg 2%} is set:
 							send {@INFO_MESSAGE-M1} to player
 							send {@INFO_MESSAGE-M2} to player
 							send {@INFO_MESSAGE-M3} to player
@@ -445,16 +445,16 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 							send {@INFO-VARIABLES_MESSAGE-NOT-CREATED} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player		
-			arg 1 = "list":
-				player has permission "simplevariablesgestion.command.list" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					{simpleVariablesGestion::variables-value::*} isn't set:
+			else if arg 1 = "list":
+				if player has permission "simplevariablesgestion.command.list" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+					if {simpleVariablesGestion::variables-value::*} isn't set:
 						send {@LIST-VARIABLES_MESSAGE-NOT-VARIABLES} to player
 					else:
 						send {@LIST-VARIABLES_MESSAGE} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
-			arg 1 = "help":
-				player has permission "simplevariablesgestion.command.help" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+			else if arg 1 = "help":
+				if player has permission "simplevariablesgestion.command.help" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
 					send {@HELP_MESSAGE-M1} to player
 					send {@HELP_MESSAGE-M2} to player
 					send {@HELP_MESSAGE-M3} to player
