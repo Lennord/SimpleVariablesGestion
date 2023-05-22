@@ -466,5 +466,5 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 					send {@HELP_MESSAGE-M9} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
-		sender = console:
+		if sender = console:
 			send {@NOT-USE-CONSOLE} to console
