@@ -5,12 +5,13 @@ options:
 	HELP_MESSAGE-M1: ""
 	HELP_MESSAGE-M2: "&b&lSimpleVariablesGestion &8»»» &fCommands Systems"
 	HELP_MESSAGE-M3: ""
-	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7/&cPlayer&7/&cDate&7/&cTimespan&7/&cWorldPlayer&7/&cToolPlayer&7/&cWorld&7/&cTool&7/&cEntity&7/&cItem&7/&cLocation&7/&cLocationPlayer&7] &7[&cvalue&7] &8» &7Create a simple variable."
-	HELP_MESSAGE-M5: "&f/svg &dmodify &7[&cname of variable&7] &7[&cString&7/&cBoolean&7/&cNumber&7/&cInteger&7/&cPlayer&7/&cDate&7/&cTimespan&7/&cWorldPlayer&7/&cToolPlayer&7/&cWorld&7/&cTool&7/&cEntity&7/&cItem&7/&cLocation&7/&cLocationPlayer&7] &7[&cvalue&7] &8» &7Modify a simple variable."
+	HELP_MESSAGE-M4: "&f/svg &dcreate &7[&cname of variable&7] &7[&cname of options&7] &7[&cvalue&7] &8» &7Create a simple variable."
+	HELP_MESSAGE-M5: "&f/svg &dmodify &7[&cname of variable&7] &7[&cname of options&7] &7[&cvalue&7] &8» &7Modify a simple variable."
 	HELP_MESSAGE-M6: "&f/svg &ddelete &7[&cname of variable&7] &8» &7Delete a simple variable."
 	HELP_MESSAGE-M7: "&f/svg &dinfo &7[&cname of variable&7] &8» &7Get info of simple variable."
 	HELP_MESSAGE-M8: "&f/svg &dlist &8» &7Get list of all simples variables."
-	HELP_MESSAGE-M9: "&f/svg &dhelp &8» &7Get list of all commands."
+	HELP_MESSAGE-M9: "&f/svg &doptions &8» &7Get list of all options."
+	HELP_MESSAGE-M10: "&f/svg &dhelp &8» &7Get list of all commands."
 
 	CREATE-VARIABLES_MESSAGE-STRING: "&cYou must put a string to be able to create the simple variable."
 	CREATE-VARIABLES_MESSAGE-BOOLEAN: "&cYou must put a boolean to be able to create the simple variable."
@@ -45,46 +46,37 @@ options:
 	LIST-VARIABLES_MESSAGE-NOT-VARIABLES: "&cThere are no simples variables available at the moment."
 	LIST-VARIABLES_MESSAGE: "&6List of all simples variables: &c%{simpleVariablesGestion::variables-name::*}%"
 
+	LIST-OPTIONS_MESSAGE: "&6List of all options: &cString&7, &cBoolean&7, &cNumber&7, &cInteger&7, &cPlayer&7, &cDate&7, &cTimespan&7, &cWorldPlayer&7, &cToolPlayer&7, &cWorld&7, &cTool&7, &cEntity&7, &cItem&7, &cLocation&7, &cLocationPlayer"
+
+function SimpleVariablesGestionSystem(sender: sender, type-function: text):
+	if {_type-function} = "HELP_MESSAGE":
+		send {@HELP_MESSAGE-M1} to {_sender}
+		send {@HELP_MESSAGE-M2} to {_sender}
+		send {@HELP_MESSAGE-M3} to {_sender}
+		send {@HELP_MESSAGE-M4} to {_sender}
+		send {@HELP_MESSAGE-M5} to {_sender}
+		send {@HELP_MESSAGE-M6} to {_sender}
+		send {@HELP_MESSAGE-M7} to {_sender}
+		send {@HELP_MESSAGE-M8} to {_sender}
+		send {@HELP_MESSAGE-M9} to {_sender}
+		send {@HELP_MESSAGE-M10} to {_sender}
+
 command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 	aliases: /svg
 	trigger:
 		if sender = player:
-			if arg 1 != "create" or "delete" or "modify" or "info" or "list" or "help":
+			if arg 1 != "create" or "delete" or "modify" or "info" or "list" or "options" or "help":
 				if player has permission "simplevariablesgestion.commands"	or "simplevariablesgestion.*":
-					send {@HELP_MESSAGE-M1} to player
-					send {@HELP_MESSAGE-M2} to player
-					send {@HELP_MESSAGE-M3} to player
-					send {@HELP_MESSAGE-M4} to player
-					send {@HELP_MESSAGE-M5} to player
-					send {@HELP_MESSAGE-M6} to player
-					send {@HELP_MESSAGE-M7} to player
-					send {@HELP_MESSAGE-M8} to player
-					send {@HELP_MESSAGE-M9} to player
+					SimpleVariablesGestionSystem(player, "HELP_MESSAGE")
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
 			else if arg 1 = "create":
 				if player has permission "simplevariablesgestion.command.create" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
 					if arg 2 isn't set:
-						send {@HELP_MESSAGE-M1} to player
-						send {@HELP_MESSAGE-M2} to player
-						send {@HELP_MESSAGE-M3} to player
-						send {@HELP_MESSAGE-M4} to player
-						send {@HELP_MESSAGE-M5} to player
-						send {@HELP_MESSAGE-M6} to player
-						send {@HELP_MESSAGE-M7} to player
-						send {@HELP_MESSAGE-M8} to player
-						send {@HELP_MESSAGE-M9} to player
+						SimpleVariablesGestionSystem(player, "HELP_MESSAGE")
 					else:
 						if arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date" or "timespan" or "worldplayer" or "toolplayer" or "world" or "tool" or "entity" or "item" or "location" or "locationplayer":
-							send {@HELP_MESSAGE-M1} to player
-							send {@HELP_MESSAGE-M2} to player
-							send {@HELP_MESSAGE-M3} to player
-							send {@HELP_MESSAGE-M4} to player
-							send {@HELP_MESSAGE-M5} to player
-							send {@HELP_MESSAGE-M6} to player
-							send {@HELP_MESSAGE-M7} to player
-							send {@HELP_MESSAGE-M8} to player
-							send {@HELP_MESSAGE-M9} to player
+							SimpleVariablesGestionSystem(player, "HELP_MESSAGE")
 						else if arg 3 = "string":
 							if arg 4 isn't text:
 								send {@CREATE-VARIABLES_MESSAGE-STRING} to player
@@ -243,26 +235,10 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 			else if arg 1 = "modify":
 				if player has permission "simplevariablesgestion.command.modify" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
 					if arg 2 isn't set:
-						send {@HELP_MESSAGE-M1} to player
-						send {@HELP_MESSAGE-M2} to player
-						send {@HELP_MESSAGE-M3} to player
-						send {@HELP_MESSAGE-M4} to player
-						send {@HELP_MESSAGE-M5} to player
-						send {@HELP_MESSAGE-M6} to player
-						send {@HELP_MESSAGE-M7} to player
-						send {@HELP_MESSAGE-M8} to player
-						send {@HELP_MESSAGE-M9} to player
+						SimpleVariablesGestionSystem(player, "HELP_MESSAGE")
 					else:
 						if arg 3 != "string" or "boolean" or "number" or "integer" or "player" or "date" or "timespan" or "worldplayer" or "toolplayer" or "world" or "tool" or "entity" or "item" or "location" or "locationplayer":
-							send {@HELP_MESSAGE-M1} to player
-							send {@HELP_MESSAGE-M2} to player
-							send {@HELP_MESSAGE-M3} to player
-							send {@HELP_MESSAGE-M4} to player
-							send {@HELP_MESSAGE-M5} to player
-							send {@HELP_MESSAGE-M6} to player
-							send {@HELP_MESSAGE-M7} to player
-							send {@HELP_MESSAGE-M8} to player
-							send {@HELP_MESSAGE-M9} to player
+							SimpleVariablesGestionSystem(player, "HELP_MESSAGE")
 						else if arg 3 = "string":
 							if arg 4 isn't text:
 								send {@CREATE-VARIABLES_MESSAGE-STRING} to player
@@ -453,17 +429,14 @@ command /simplevariablesgestion [<text>] [<text>] [<text>] [<text>]:
 						send {@LIST-VARIABLES_MESSAGE} to player
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
+			else if arg 1 = "options":
+				if player has permission "simplevariablesgestion.command.options" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
+					send {@LIST-OPTIONS_MESSAGE} to player
+				else:
+					send {@PLAYER_MESSAGE-NOT-PERM} to player
 			else if arg 1 = "help":
 				if player has permission "simplevariablesgestion.command.help" or "simplevariablesgestion.commands" or "simplevariablesgestion.*":
-					send {@HELP_MESSAGE-M1} to player
-					send {@HELP_MESSAGE-M2} to player
-					send {@HELP_MESSAGE-M3} to player
-					send {@HELP_MESSAGE-M4} to player
-					send {@HELP_MESSAGE-M5} to player
-					send {@HELP_MESSAGE-M6} to player
-					send {@HELP_MESSAGE-M7} to player
-					send {@HELP_MESSAGE-M8} to player
-					send {@HELP_MESSAGE-M9} to player
+					SimpleVariablesGestionSystem(player, "HELP_MESSAGE")
 				else:
 					send {@PLAYER_MESSAGE-NOT-PERM} to player
 		if sender = console:
